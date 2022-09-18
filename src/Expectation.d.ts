@@ -68,25 +68,27 @@ interface Expectation<T> {
 	throw: (this: Expectation<Callback>, search?: string) => Expectation<T>;
 }
 
+type PartialExpectation<T> = Omit<Expectation<T>, keyof InverseExpectation<T>>;
+
 interface InverseExpectation<T> {
 	// LINGUISTIC NO-OPS
 	/** A linguistic no-op */
-	readonly to: InverseExpectation<T> & Expectation<T> & CustomMatchers;
+	readonly to: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
 
 	/** A linguistic no-op */
-	readonly be: InverseExpectation<T> & Expectation<T> & CustomMatchers;
+	readonly be: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
 
 	/** A linguistic no-op */
-	readonly been: InverseExpectation<T> & Expectation<T> & CustomMatchers;
+	readonly been: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
 
 	/** A linguistic no-op */
-	readonly have: InverseExpectation<T> & Expectation<T> & CustomMatchers;
+	readonly have: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
 
 	/** A linguistic no-op */
-	readonly was: InverseExpectation<T> & Expectation<T> & CustomMatchers;
+	readonly was: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
 
 	/** A linguistic no-op */
-	readonly at: InverseExpectation<T> & Expectation<T> & CustomMatchers;
+	readonly at: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
 
 	// LINGUISTIC OPS
 	/** Applies a never operation to the expectation */
