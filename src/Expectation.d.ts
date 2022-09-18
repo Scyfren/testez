@@ -20,7 +20,7 @@ interface Expectation<T> {
 
 	// LINGUISTIC OPS
 	/** Applies a never operation to the expectation */
-	readonly never: InverseExpectation<T> & CustomMatchers;
+	readonly never: Expectation<unknown> & CustomMatchers;
 
 	// METHODS
 
@@ -66,42 +66,6 @@ interface Expectation<T> {
 	 * @returns If the assertion passes, returns reference to itself
 	 */
 	throw: (this: Expectation<Callback>, search?: string) => Expectation<T>;
-}
-
-type PartialExpectation<T> = Omit<Expectation<T>, keyof InverseExpectation<T>>;
-
-interface InverseExpectation<T> {
-	// LINGUISTIC NO-OPS
-	/** A linguistic no-op */
-	readonly to: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
-
-	/** A linguistic no-op */
-	readonly be: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
-
-	/** A linguistic no-op */
-	readonly been: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
-
-	/** A linguistic no-op */
-	readonly have: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
-
-	/** A linguistic no-op */
-	readonly was: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
-
-	/** A linguistic no-op */
-	readonly at: InverseExpectation<T> & PartialExpectation<T> & CustomMatchers;
-
-	// LINGUISTIC OPS
-	/** Applies a never operation to the expectation */
-	readonly never: Expectation<T> & CustomMatchers;
-
-	// METHODS
-
-	/**
-	 * Assert that our expectation value is equal to another value
-	 * @param otherValue The other value
-	 * @returns If the assertion passes, returns reference to itself
-	 */
-	equal: (otherValue: unknown) => Expectation<T>;
 }
 
 interface ExpectationConstructor {
